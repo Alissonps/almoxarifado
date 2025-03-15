@@ -1,0 +1,63 @@
+{% extends 'estoque/base.html' %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">Bem-vindo ao Sistema de Almoxarifado</h1>
+    <p class="lead">Gerencie seu estoque de forma eficiente e organizada.</p>
+    <hr class="my-4">
+    <p>Comece adicionando novos itens, visualizando a lista de itens ou realizando retiradas.</p>
+    <div class="mt-4">
+        <a href="{% url 'adicionar_item' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-plus"></i> Adicionar Item
+        </a>
+        <a href="{% url 'lista_itens' %}" class="btn btn-success btn-lg">
+            <i class="fas fa-list"></i> Ver Lista de Itens
+        </a>
+        <a href="{% url 'lista_retiradas' %}" class="btn btn-info btn-lg">
+            <i class="fas fa-list"></i> Lista de Retiradas
+        </a>
+        <a href="{% url 'criar_retirada' %}" class="btn btn-warning btn-lg">
+            <i class="fas fa-cart-arrow-down"></i> Nova Retirada
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">Itens com Baixo Estoque</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for item in itens_baixo_estoque %}
+                        <li class="list-group-item">
+                            {{ item.nome }} - Quantidade: {{ item.quantidade }} (Mínimo: {{ item.estoque_minimo }})
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">Nenhum item com baixo estoque.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="card-title mb-0">Últimos Itens Adicionados</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for item in ultimos_itens %}
+                        <li class="list-group-item">
+                            {{ item.nome }} - Adicionado em: {{ item.data_cadastro|date:"d/m/Y H:i" }}
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">Nenhum item cadastrado recentemente.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

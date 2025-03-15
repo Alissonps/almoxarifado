@@ -1,0 +1,11 @@
+{% extends 'estoque/base.html' %}
+
+{% block content %}
+<h1 class="text-center">{% block title %}Editar Item{% endblock %}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{% url 'lista_itens' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

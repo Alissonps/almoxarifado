@@ -1,0 +1,79 @@
+{% extends 'estoque/base.html' %}
+
+{% block content %}
+<h1 class="text-center">Itens do Almoxarifado</h1>
+
+<!-- Formulário de Busca -->
+<form method="get" action="{% url 'lista_itens' %}" class="search-form">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Buscar por nome ou categoria..." value="{{ request.GET.q }}">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </div>
+</form>
+
+<!-- Tabela de Itens -->
+<div class="mb-3">
+    <a href="{% url 'exportar_itens' 'csv' %}" class="btn btn-success">
+        <i class="fas fa-file-csv"></i> Exportar para CSV
+    </a>
+    <a href="{% url 'exportar_itens' 'excel' %}" class="btn btn-success">
+        <i class="fas fa-file-excel"></i> Exportar para Excel
+    </a>
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Categoria</th>
+                <th>Localização</th>
+                <th>Estoque Mínimo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in page_obj %}
+                <tr>
+                    <td>{{ item.nome }}</td>
+                    <td>{{ item.descricao }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>{{ item.categoria }}</td>
+                    <td>{{ item.localizacao }}</td>
+                    <td>{{ item.estoque_minimo }}</td>
+                    <td>
+                        <a href="{% url 'editar_item' item.id %}" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="{% url 'excluir_item' item.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este item?');">
+                            <i class="fas fa-trash"></i> Excluir
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<!-- Navegação de Paginação -->]
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1&q={{ request.GET.q }}" class="btn btn-secondary">Primeira</a>
+            <a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}" class="btn btn-secondary">Anterior</a>
+        {% endif %}
+    
+        <span class="current">
+        
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}" class="btn btn-secondary">Próxima</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&q={{ request.GET.q }}" class="btn btn-secondary">Última</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

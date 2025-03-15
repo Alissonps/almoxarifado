@@ -1,0 +1,35 @@
+{% extends 'estoque/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Lista de Retiradas</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Usuário</th>
+                <th>Observação</th>
+                <th>Itens Retirados</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for retirada in retiradas %}
+                <tr>
+                    <td>{{ retirada.id }}</td>
+                    <td>{{ retirada.data|date:"d/m/Y H:i" }}</td>
+                    <td>{{ retirada.usuario.username }}</td>
+                    <td>{{ retirada.observacao }}</td>
+                    <td>
+                        <ul>
+                            {% for item in retirada.itens_retirados.all %}
+                                <li>{{ item.item.nome }} - {{ item.quantidade }} unidades</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

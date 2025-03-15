@@ -1,0 +1,12 @@
+[workspace]
+restore_data_on_startup = True
+save_data_on_exit = True
+save_history = True
+save_non_project_files = False
+project_type = 'empty-project-type'
+recent_files = ['..\\..\\.spyder-py3\\temp.py', 'almoxarifado\\settings.py', 'estoque\\models.py', 'estoque\\admin.py', 'estoque\\views.py', 'almoxarifado\\urls.py', 'estoque\\urls.py', 'estoque\\apps.py', 'estoque\\templates\\estoque\\pagina_inicial.html', 'estoque\\templates\\estoque\\lista_itens.html', 'estoque\\forms.py', 'estoque\\templates\\estoque\\adicionar_item.html', 'estoque\\templates\\estoque\\editar_item.html', 'estoque\\templates\\estoque\\base.html', 'estoque\\templates\\estoque\\login.html', 'estoque\\templates\\estoque\\logout.html', 'estoque\\static\\estoque\\styles.css', 'estoque\\templates\\estoque\\criar_retirada.html', 'estoque\\templates\\estoque\\lista_retiradas.html', 'estoque\\tests.py', 'almoxarifado\\asgi.py']
+
+[main]
+version = 0.2.0
+recent_files = []
+
